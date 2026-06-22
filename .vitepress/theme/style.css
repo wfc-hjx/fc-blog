@@ -1,0 +1,175 @@
+/* ===================================
+   wfc-blog 自定义样式 — 蓝紫科技风
+   =================================== */
+
+/* ---------- 品牌色覆盖 ---------- */
+:root {
+  /* 主品牌色：靛蓝 → 紫罗兰渐变 */
+  --vp-c-brand-1: #4f46e5;
+  --vp-c-brand-2: #6366f1;
+  --vp-c-brand-3: #818cf8;
+  --vp-c-brand-soft: rgba(99, 102, 241, 0.14);
+
+  /* 强调色微调 */
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+
+  --vp-c-warning-1: #f59e0b;
+  --vp-c-warning-2: #fbbf24;
+  --vp-c-warning-3: #fcd34d;
+
+  --vp-c-danger-1: #ef4444;
+  --vp-c-danger-2: #f87171;
+  --vp-c-danger-3: #fca5a5;
+}
+
+/* ---------- Hero 标题渐变 ---------- */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #4f46e5 20%,
+    #7c3aed 50%,
+    #06b6d4 80%
+  );
+}
+
+/* ---------- Hero 图片区域（可选光晕） ---------- */
+:root {
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #4f46e5 0%,
+    #7c3aed 50%,
+    #06b6d4 100%
+  );
+  --vp-home-hero-image-filter: blur(72px);
+}
+
+/* ---------- Features 卡片增强 ---------- */
+.VPFeature {
+  border-radius: 16px !important;
+  border: 1px solid var(--vp-c-divider) !important;
+  background: var(--vp-c-bg) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2) !important;
+  box-shadow: var(--vp-shadow-1);
+}
+
+.VPFeature:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--vp-shadow-3);
+  border-color: var(--vp-c-brand-1) !important;
+}
+
+.VPFeature .icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.VPFeature .title {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--vp-c-text-1);
+}
+
+.VPFeature .details {
+  color: var(--vp-c-text-2);
+  line-height: 1.7;
+}
+
+/* ---------- 按钮微调 ---------- */
+.VPHero .actions .VPButton.brand {
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.VPHero .actions .VPButton.alt {
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* ---------- 正文排版优化 ---------- */
+.vp-doc {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.vp-doc h1 {
+  background: linear-gradient(120deg, #4f46e5, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- 导航栏微调 ---------- */
+.VPNavBar {
+  backdrop-filter: blur(12px);
+}
+
+.VPNavBar .title {
+  font-weight: 700;
+}
+
+/* ---------- 底部 Footer ---------- */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+  padding: 32px 0 !important;
+}
+
+/* ---------- 滚动条美化 ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-text-3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-2);
+}
+
+/* ---------- 选中文字颜色 ---------- */
+::selection {
+  background: var(--vp-c-brand-soft);
+}
+
+/* ===================================
+   暗色模式适配
+   =================================== */
+.dark {
+  --vp-c-brand-1: #818cf8;
+  --vp-c-brand-2: #6366f1;
+  --vp-c-brand-3: #4f46e5;
+  --vp-c-brand-soft: rgba(129, 140, 248, 0.16);
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #818cf8 20%,
+    #a78bfa 50%,
+    #22d3ee 80%
+  );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #4f46e5 0%,
+    #7c3aed 50%,
+    #06b6d4 100%
+  );
+}
+
+.dark .VPFeature {
+  background: var(--vp-c-bg-soft) !important;
+  border-color: var(--vp-c-divider) !important;
+}
+
+.dark .VPFeature:hover {
+  border-color: var(--vp-c-brand-1) !important;
+}
