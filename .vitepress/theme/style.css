@@ -90,7 +90,7 @@
   font-weight: 500;
 }
 
-/* ---------- 正文排版优化 ---------- */
+/* ---------- 主页内容的级联样式 ---------- */
 .vp-doc {
   font-size: 16px;
   line-height: 1.8;
@@ -101,6 +101,123 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ---------- 文章列表卡片 ---------- */
+.article-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.article-card {
+  display: block;
+  padding: 20px 28px;
+  border-radius: 14px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.article-card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: var(--vp-shadow-3);
+  transform: translateY(-2px);
+}
+
+.article-card .article-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  padding: 2px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.article-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  margin: 0 0 6px;
+}
+
+.article-card p {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ---------- 项目卡片 ---------- */
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (min-width: 640px) {
+  .project-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.project-card {
+  display: block;
+  padding: 22px 26px;
+  border-radius: 14px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: var(--vp-shadow-3);
+  transform: translateY(-2px);
+}
+
+.project-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.project-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  margin: 0;
+}
+
+.project-card-star {
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+}
+
+.project-card-desc {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.project-card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  padding: 2px 10px;
+  border-radius: 10px;
 }
 
 /* ---------- 导航栏微调 ---------- */
