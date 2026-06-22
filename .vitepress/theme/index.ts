@@ -3,11 +3,13 @@
 
 import DefaultTheme from 'vitepress/theme'
 import AboutPanel from './components/AboutPanel.vue'
+import HomePanel from './components/HomePanel.vue'
 import './style.css'
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     app.component('AboutPanel', AboutPanel)
+    app.component('HomePanel', HomePanel)
   }
 }

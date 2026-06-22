@@ -1,19 +1,44 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+
+const tagline = '后端为主 · 兼顾前端 · 关注 AI'
+
+const bio = '热爱技术，相信代码的力量可以改变世界。持续学习，持续构建，持续分享。'
+
+const skillCategories = [
+  {
+    name: '后端',
+    icon: '⚙️',
+    tags: ['Node.js', 'Python', 'Go', 'PostgreSQL', 'Redis', 'Docker']
+  },
+  {
+    name: '前端',
+    icon: '🎨',
+    tags: ['React', 'Vue', 'TypeScript', 'Tailwind CSS', 'Next.js']
+  },
+  {
+    name: 'DevOps',
+    icon: '🚀',
+    tags: ['Docker', 'GitHub Actions', 'Nginx', 'Linux']
+  },
+  {
+    name: 'AI / 数据',
+    icon: '🧠',
+    tags: ['LangChain', 'OpenAI API', 'RAG', 'Pandas']
+  }
+]
+
+const currentProject = {
+  name: 'wfc-blog',
+  desc: '基于 VitePress 构建的个人技术博客，正在持续迭代中',
+  status: '🚧 开发中',
+  link: 'https://github.com/wfc-hjx/fc-blog'
+}
 
 const stats = [
   { label: '文章', value: 12, suffix: '+', icon: '📝' },
   { label: '开源项目', value: 5, suffix: '+', icon: '🔧' },
   { label: '编码年限', value: 5, suffix: '+', icon: '⏳' },
-]
-
-const skills = [
-  { name: 'React / Vue', level: 90, color: '#4f46e5' },
-  { name: 'TypeScript', level: 85, color: '#7c3aed' },
-  { name: 'Node.js', level: 80, color: '#06b6d4' },
-  { name: 'CSS / Tailwind', level: 88, color: '#8b5cf6' },
-  { name: 'Docker / DevOps', level: 70, color: '#6366f1' },
-  { name: 'Python', level: 65, color: '#3b82f6' },
 ]
 
 const milestones = [
@@ -22,27 +47,26 @@ const milestones = [
   { year: '2023', title: '前端入门', desc: '写下第一行 HTML/CSS，打开编程大门' },
 ]
 
-const activeSkill = ref(-1)
+const contacts = [
+  { icon: '🐙', label: 'GitHub', link: 'https://github.com/wfc-hjx' },
+  { icon: '📧', label: 'Email', link: 'mailto:wfc@example.com' },
+  { icon: '💬', label: 'Blog', link: '/' },
+]
 
-function progressStyle(sk, i) {
-  return {
-    width: (activeSkill.value === i ? sk.level : 0) + '%',
-    background: sk.color
-  }
-}
+const hoveredTag = ref('')
 </script>
 
 <template>
   <div class="about-page">
-    <!-- Header -->
-    <div class="about-header">
+    <!-- ===== Hero ===== -->
+    <div class="about-hero">
       <div class="about-avatar">W</div>
       <h1 class="about-name">wfc</h1>
-      <p class="about-role">全栈开发者 · 开源爱好者</p>
-      <p class="about-bio">热爱技术，相信代码的力量可以改变世界。<br/>持续学习，持续构建，持续分享。</p>
+      <p class="about-tagline">{{ tagline }}</p>
+      <p class="about-bio">{{ bio }}</p>
     </div>
 
-    <!-- Stats -->
+    <!-- ===== Stats ===== -->
     <div class="about-stats">
       <div class="stat-card" v-for="s in stats" :key="s.label">
         <span class="stat-icon">{{ s.icon }}</span>
@@ -51,33 +75,42 @@ function progressStyle(sk, i) {
       </div>
     </div>
 
-    <!-- Skills -->
+    <!-- ===== Current Project ===== -->
     <div class="about-section">
-      <h2 class="section-title">🛠 技术栈</h2>
-      <div class="skills-grid">
-        <div
-          class="skill-bar-row"
-          v-for="(sk, i) in skills"
-          :key="sk.name"
-          @mouseenter="activeSkill = i"
-          @mouseleave="activeSkill = -1"
-        >
-          <div class="skill-info">
-            <span class="skill-name">{{ sk.name }}</span>
-            <span class="skill-pct">{{ sk.level }}%</span>
-          </div>
-          <div class="skill-track">
-            <div
-              class="skill-fill"
-              :class="{ active: activeSkill === i }"
-              :style="progressStyle(sk, i)"
-            ></div>
+      <h2 class="section-title">📌 当前在做</h2>
+      <a :href="currentProject.link" target="_blank" class="project-card">
+        <div class="project-card-top">
+          <h3 class="project-card-name">{{ currentProject.name }}</h3>
+          <span class="project-card-status">{{ currentProject.status }}</span>
+        </div>
+        <p class="project-card-desc">{{ currentProject.desc }}</p>
+      </a>
+    </div>
+
+    <!-- ===== Skills ===== -->
+    <div class="about-section">
+      <h2 class="section-title">🧠 技术栈</h2>
+      <div class="skill-categories">
+        <div class="skill-cat" v-for="cat in skillCategories" :key="cat.name">
+          <h3 class="skill-cat-name">
+            <span>{{ cat.icon }}</span>
+            <span>{{ cat.name }}</span>
+          </h3>
+          <div class="skill-tags">
+            <span
+              class="skill-tag"
+              v-for="t in cat.tags"
+              :key="t"
+              :class="{ hovered: hoveredTag === t }"
+              @mouseenter="hoveredTag = t"
+              @mouseleave="hoveredTag = ''"
+            >{{ t }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Timeline -->
+    <!-- ===== Timeline ===== -->
     <div class="about-section">
       <h2 class="section-title">📅 历程</h2>
       <div class="timeline">
@@ -92,14 +125,19 @@ function progressStyle(sk, i) {
       </div>
     </div>
 
-    <!-- Contact -->
-    <div class="about-section contact-section">
+    <!-- ===== Contact ===== -->
+    <div class="about-section">
       <h2 class="section-title">📬 联系我</h2>
-      <p class="contact-text">技术交流与建议，欢迎通过以下方式联系</p>
-      <div class="contact-links">
-        <a href="https://github.com" target="_blank" class="contact-link">
-          <span class="contact-icon">🐙</span>
-          <span>GitHub</span>
+      <div class="contact-cards">
+        <a
+          v-for="c in contacts"
+          :key="c.label"
+          :href="c.link"
+          :target="c.link.startsWith('http') ? '_blank' : undefined"
+          class="contact-card"
+        >
+          <span class="contact-card-icon">{{ c.icon }}</span>
+          <span class="contact-card-label">{{ c.label }}</span>
         </a>
       </div>
     </div>
@@ -112,13 +150,13 @@ function progressStyle(sk, i) {
 
 <style scoped>
 .about-page {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 48px 24px 64px;
+  padding: 56px 24px 64px;
 }
 
-/* ===== Header ===== */
-.about-header {
+/* ===== Hero ===== */
+.about-hero {
   text-align: center;
   margin-bottom: 48px;
 }
@@ -150,15 +188,16 @@ function progressStyle(sk, i) {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
 }
 
-.about-role {
-  font-size: 16px;
-  color: var(--vp-c-brand-1);
+.about-tagline {
+  font-size: 15px;
   font-weight: 600;
+  color: var(--vp-c-brand-1);
   margin: 0 0 12px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
 }
 
 .about-bio {
@@ -166,6 +205,8 @@ function progressStyle(sk, i) {
   color: var(--vp-c-text-2);
   line-height: 1.8;
   margin: 0;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 /* ===== Stats ===== */
@@ -180,7 +221,7 @@ function progressStyle(sk, i) {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 16px;
-  padding: 20px 12px;
+  padding: 22px 12px;
   text-align: center;
   transition: all 0.3s ease;
   display: flex;
@@ -237,50 +278,96 @@ function progressStyle(sk, i) {
   border-radius: 1px;
 }
 
-/* ===== Skills ===== */
-.skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* ===== Current Project Card ===== */
+.project-card {
+  display: block;
+  padding: 24px 28px;
+  border-radius: 16px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.skill-bar-row {
+.project-card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: var(--vp-shadow-3);
+  transform: translateY(-2px);
+}
+
+.project-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.project-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  margin: 0;
+}
+
+.project-card-status {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+
+.project-card-desc {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===== Skills ===== */
+.skill-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skill-cat-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  margin: 0 0 10px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
   cursor: default;
 }
 
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.skill-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-}
-
-.skill-pct {
-  font-size: 13px;
-  color: var(--vp-c-text-2);
-  font-variant-numeric: tabular-nums;
-}
-
-.skill-track {
-  height: 6px;
-  background: var(--vp-c-divider);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.skill-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1.2);
-}
-
-.skill-bar-row:hover .skill-fill {
-  box-shadow: 0 0 12px currentColor;
+.skill-tag.hovered,
+.skill-tag:hover {
+  background: var(--vp-c-brand-1);
+  color: #fff;
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
 }
 
 /* ===== Timeline ===== */
@@ -348,48 +435,40 @@ function progressStyle(sk, i) {
   line-height: 1.6;
 }
 
-/* ===== Contact ===== */
-.contact-section {
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
-  padding: 28px 32px;
-}
-
-.contact-text {
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-  margin: 0 0 16px;
-}
-
-.contact-links {
-  display: flex;
+/* ===== Contact Cards ===== */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
-.contact-link {
-  display: inline-flex;
+.contact-card {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background: var(--vp-c-bg);
+  padding: 20px 12px;
+  border-radius: 14px;
+  background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.contact-link:hover {
+.contact-card:hover {
   border-color: var(--vp-c-brand-1);
   box-shadow: var(--vp-shadow-2);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
-.contact-icon {
-  font-size: 18px;
+.contact-card-icon {
+  font-size: 28px;
+}
+
+.contact-card-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
 }
 
 /* ===== Footer ===== */
@@ -397,6 +476,6 @@ function progressStyle(sk, i) {
   text-align: center;
   font-size: 14px;
   color: var(--vp-c-text-3);
-  margin-top: 8px;
+  margin-top: 0;
 }
 </style>

@@ -9,22 +9,69 @@ export default defineConfig({
   lastUpdated: true,
 
   base: "/fc-blog/",
-  
+
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '🏠 首页', link: '/' },
-      { text: '📝 文章', link: '/articles/hello-world' },
+      {
+        text: '📝 文章',
+        items: [
+          { text: '全部文章', link: '/articles/' },
+          { text: '🧠 AI', link: '/articles/ai/' },
+          { text: '🧩 前端', link: '/articles/frontend/' },
+          { text: '⚙️ 后端', link: '/articles/backend/' },
+          { text: '🌱 生活', link: '/articles/life/' },
+        ]
+      },
+      { text: '🔧 项目', link: '/projects' },
       { text: '🙋 关于', link: '/about' }
     ],
 
     sidebar: {
+      '/articles/ai/': [
+        {
+          text: 'AI / 机器学习',
+          items: [
+            { text: '概述', link: '/articles/ai/' },
+          ]
+        }
+      ],
+      '/articles/frontend/': [
+        {
+          text: '前端开发',
+          items: [
+            { text: '概述', link: '/articles/frontend/' },
+            { text: 'Markdown 写作指南', link: '/articles/frontend/markdown-guide' },
+          ]
+        }
+      ],
+      '/articles/backend/': [
+        {
+          text: '后端开发',
+          items: [
+            { text: '概述', link: '/articles/backend/' },
+          ]
+        }
+      ],
+      '/articles/life/': [
+        {
+          text: '生活随记',
+          items: [
+            { text: '概述', link: '/articles/life/' },
+            { text: 'Hello World', link: '/articles/life/hello-world' },
+          ]
+        }
+      ],
       '/articles/': [
         {
           text: '文章列表',
           items: [
-            { text: 'Hello World', link: '/articles/hello-world' },
-            { text: 'Markdown 扩展', link: '/articles/markdown-guide' }
+            { text: '全部文章', link: '/articles/' },
+            { text: '🧠 AI', link: '/articles/ai/' },
+            { text: '🧩 前端', link: '/articles/frontend/' },
+            { text: '⚙️ 后端', link: '/articles/backend/' },
+            { text: '🌱 生活', link: '/articles/life/' },
           ]
         }
       ]
